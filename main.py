@@ -12,11 +12,11 @@ def create_data():
     return data_list
 
 def x_random():
-    num_x = random.randint(10,26)
+    num_x = random.randint(10,20)
     x_list = []
     # randomly arrange the range of x
     for i in range(0,num_x+1):
-        x_list.append(random.randint(1,21));
+        x_list.append(random.randint(1,20));
     num_random = random.randint(1,5)
     # randomly give graph data None
     for i in range(1,num_random+1):
