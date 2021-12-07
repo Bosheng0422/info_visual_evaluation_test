@@ -30,12 +30,13 @@ def x_random():
 
 
 def save_data_as_csv(record_list):
+    exist = os.path.exists('info_record.csv')
     with open("info_record.csv", "a+") as csv_file:
         writer = csv.writer(csv_file)
 
         # 先写入columns_name
-        if not os.path.exists('info_record.csv'):
-            writer.writerow(["username", "chart_type", "answer", "respose_time"])
+        if not exist:
+            writer.writerow(["username", "graph_group", "chart_type", "answer", "response_time"])
         # 写入多行用writerows
         writer.writerows(record_list)
 
@@ -78,9 +79,11 @@ def create_graph(username, data_list):
         if index > 9:
             answer, response_time = create_line_chart(data_list[index])
             single_record.append('line chart')
+            single_record.append(index-10)
         else:
             answer, response_time = create_plot_chart(data_list[index])
             single_record.append('plot chart')
+            single_record.append(index)
         single_record.append(answer)
         single_record.append(response_time)
         record_list.append(single_record)
