@@ -36,7 +36,7 @@ def save_data_as_csv(record_list):
 
         # 先写入columns_name
         if not exist:
-            writer.writerow(["username", "graph_group", "chart_type", "answer", "response_time"])
+            writer.writerow(["username", "chart_type", "gounp_number", "missing_value", "number of y", "answer", "response_time"])
         # 写入多行用writerows
         writer.writerows(record_list)
 
@@ -76,6 +76,10 @@ def create_graph(username, data_list):
     for index in data_indexes:
         single_record = []
         single_record.append(username)
+        missing_number = 0
+        for y_data in data_list[index]:
+            if y_data is None:
+                missing_number += 1
         if index > 9:
             answer, response_time = create_line_chart(data_list[index])
             single_record.append('line chart')
@@ -84,6 +88,8 @@ def create_graph(username, data_list):
             answer, response_time = create_plot_chart(data_list[index])
             single_record.append('plot chart')
             single_record.append(index)
+        single_record.append(missing_number)
+        single_record.append(len(data_list[index]))
         single_record.append(answer)
         single_record.append(response_time)
         record_list.append(single_record)
